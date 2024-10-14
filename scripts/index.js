@@ -28,10 +28,53 @@ async function getToken() {
 
         // convert to json
         const result = await res.json();
-        console.log(result);
+        return result;
     } catch (error) {
         console.error(error.message);
     }
 }
 
-getToken();
+var list = document.createElement('ul').appendChild(document.body);
+
+async function getTopTenSongs() {
+    const token = getToken();
+    const url = "https://api.spotify.com/v1/tracks";
+    var result;
+
+    try {
+        const res = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + getToken()
+            }
+        });
+
+        if (!res.ok) {
+            throw new Error(res.status);
+        }
+        
+        result = await res.json();
+    } catch (error) {
+        console.error(error.message);
+    }
+
+    for (result['name'] in result) {
+        document.createElement('li').appendChild(list);
+    }
+}
+
+async function addToQueue(song, username) {
+    const token = getToken;
+    const url = "https://https://api.spotify.com/v1/" + username + "/player/queue";
+    
+    try {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer' + getToken()
+            }
+        });
+    } catch (error) {
+
+    }
+}
