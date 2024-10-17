@@ -64,7 +64,6 @@ async function getTopTenSongs() {
 }
 
 async function addToQueue(song, username) {
-    const token = getToken;
     const url = "https://https://api.spotify.com/v1/" + username + "/player/queue";
     
     try {
@@ -76,5 +75,23 @@ async function addToQueue(song, username) {
         });
     } catch (error) {
 
+    }
+}
+
+
+async function getAllPlaylists(username) {
+    const url = 'https://api.spotify.com/v1/users/' + username + '/playlists';
+
+    try {
+        const res = await fetch (url, {
+            headers: {
+                'Authorization': 'Bearer' + getToken()
+            }
+        });
+
+        var result = await res.json();
+        console.log(result);
+    } catch (error) {
+        console.error(error.message);
     }
 }
